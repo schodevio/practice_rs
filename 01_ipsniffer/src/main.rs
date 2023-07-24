@@ -3,6 +3,7 @@ use std::net::{IpAddr, TcpStream};
 use std::ops::RangeInclusive;
 use std::sync::mpsc::{Sender, channel};
 use std::thread;
+use std::time::Instant;
 
 use clap::Parser;
 
@@ -56,6 +57,7 @@ pub struct Args {
 
 fn main() {
     let args = Args::parse();
+    let time = Instant::now();
 
     let threads = args.threads;
     let address = args.address;
@@ -83,4 +85,6 @@ fn main() {
     for v in out {
         println!("{} is open", v);
     }
+
+    println!("Elapsed: {:?}", time.elapsed());
 }
